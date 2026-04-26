@@ -313,9 +313,12 @@ sub InitOysters($){
 	chdir $path || 	Die "switching to 'oyster_dir ($path)': $!\n";
 	my @modules = <*.pm>;
 	foreach my $module (@modules) {
-		$module =~ s/\.pm$//;
+	        # modification 2026/04/26
+		#$module =~ s/\.pm$//;
 		$oysters{$module} = eval "local \$SIG{__DIE__} = 'IGNORE';
-		                         require $module;
+		                         # modification 2026/04/26
+					 # TODO: check Windows portability
+		                         require qq~$path/$module~;
 		                         $module->new()";
 		if ($@) {
 			Die "Unable to load oyster $module: $@";
