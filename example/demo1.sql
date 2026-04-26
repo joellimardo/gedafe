@@ -1,9 +1,9 @@
 -- Gedafe Demo Application 1 - A very simple customers/products/orders database
 -- Released as Public Domain. Do with it what you want.
 
-DROP DATABASE demo1;
-CREATE DATABASE demo1;
-COMMENT ON DATABASE demo1 IS 'Gedafe Demo Application 1';
+DROP DATABASE gedafedemo1;
+CREATE DATABASE gedafedemo1;
+COMMENT ON DATABASE gedafedemo1 IS 'Gedafe Demo Application 1';
 
 --###################
 -- Gedafe Meta Tables
