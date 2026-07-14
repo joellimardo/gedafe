@@ -5,17 +5,18 @@
 # print "Database temporarily disabled for maintenance.<br>\n";
 # exit;
 
-use lib "/tmp/releases/gedafe/lib/perl";
+use lib qw~/tmp/releases/gedafe/lib/perl ./myoysters ./mypearls ./mywidgets~;
 
 use Gedafe::Start;
 use CGI qw~:standard~;
+
 $|=1; # do not buffer output to get a more responsive feeling
 
 my $cgi = CGI->new;
 
 Start(
     $cgi , 
-    db_datasource  => 'DBI:Pg:dbname=gedafedemo1',
+    db_datasource  => 'DBI:Pg:dbname=demo1',
     list_rows      => 15,
     templates      => '/tmp/releases/gedafe/example/templates',
     schema	   => 'public',

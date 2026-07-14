@@ -777,10 +777,19 @@ END
 	}
 
 	# defaults
+# JL 2026/07/14 - this method of retrieving the default value is deprecated
+=head1
 	$query = <<'END';
 SELECT d.adsrc FROM pg_attrdef d, pg_class c WHERE
 c.relname = ? AND c.oid = d.adrelid AND d.adnum = ?;
 END
+=cut
+        $query =<<'END';
+SELECT pg_get_expr(d.adbin,d.adrelid) as adsrc FROM pg_attrdef d, pg_class c WHERE
+c.relname = ? AND c.oid = d.adrelid AND d.adnum = ?;
+END
+	
+	
 	$sth = $dbh->prepare($query) or die $dbh->errstr;
 	for my $table (keys %$tables) {
 		for my $field (keys %{$fields{$table}}) {

@@ -278,6 +278,8 @@ sub InitPearls($){
 	foreach my $module (@modules) {
 		$module =~ s/\.pm$//;
 		$pearls{$module} = eval "local \$SIG{__DIE__} = 'IGNORE';
+		                         #modified JL 2026/07/14
+		                         use lib qw~.~;
 		                         require $module;
 		                         $module->new()";
 		if ($@) {
@@ -313,12 +315,9 @@ sub InitOysters($){
 	chdir $path || 	Die "switching to 'oyster_dir ($path)': $!\n";
 	my @modules = <*.pm>;
 	foreach my $module (@modules) {
-	        # modification 2026/04/26
-		#$module =~ s/\.pm$//;
+		$module =~ s/\.pm$//;
 		$oysters{$module} = eval "local \$SIG{__DIE__} = 'IGNORE';
-		                         # modification 2026/04/26
-					 # TODO: check Windows portability
-		                         require qq~$path/$module~;
+		                         require $module;
 		                         $module->new()";
 		if ($@) {
 			Die "Unable to load oyster $module: $@";
